@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LightingManager : MonoBehaviour
 {
-    public Light mainLight; // Assign the main directional light in the inspector
+    public Light mainLight; //  I need to Assign the main directional light in the inspector
 
     public void UpdateLighting(BiomeOneCheck.BiomeType biome)
     {
@@ -26,36 +26,37 @@ public class LightingManager : MonoBehaviour
         }
     }
 
+//lighting for each environemnt
     private void SetForestLighting()
     {
         mainLight.intensity = 1.0f;
         mainLight.color = Color.white;
         RenderSettings.ambientLight = new Color(0.8f, 0.8f, 0.8f);
-        // Set the skybox or other environmental settings as needed
+        // I need to Set the skybox 
     }
 
     private void SetSnowLighting()
     {
         mainLight.intensity = 0.8f;
-        mainLight.color = new Color(0.9f, 0.9f, 1.0f); // Slightly blue tint
+        mainLight.color = new Color(0.9f, 0.9f, 1.0f); 
         RenderSettings.ambientLight = new Color(0.6f, 0.7f, 0.8f);
-        // Set the skybox or other environmental settings as needed
+        //I need to Set the skybox 
     }
 
     private void SetMudLighting()
     {
         mainLight.intensity = 0.7f;
-        mainLight.color = new Color(0.8f, 0.7f, 0.5f); // Warm, earthy tone
+        mainLight.color = new Color(0.8f, 0.7f, 0.5f); 
         RenderSettings.ambientLight = new Color(0.7f, 0.65f, 0.6f);
-        // Set the skybox or other environmental settings as needed
+        // I need to Set the skybox 
     }
 
     private void SetDarkZoneLighting()
     {
         mainLight.intensity = 0.25f;
-        mainLight.color = Color.gray; // Dim and eerie
+        mainLight.color = Color.gray; 
         RenderSettings.ambientLight = new Color(0.5f, 0.5f, 0.5f);
-        // Set the skybox or other environmental settings as needed
+        //I  need to Set the skybox 
     }
 
     private void SetDefaultLighting()
@@ -63,6 +64,6 @@ public class LightingManager : MonoBehaviour
         mainLight.intensity = 1.0f;
         mainLight.color = Color.white;
         RenderSettings.ambientLight = Color.white;
-        // Reset to default skybox or other settings
+        // Reset to default skybox 
     }
 }

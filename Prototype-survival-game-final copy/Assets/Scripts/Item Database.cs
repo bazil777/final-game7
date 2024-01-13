@@ -20,10 +20,9 @@ public class ItemDatabase : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+//I have added items here
     private void InitializeItems()
     {
-        // Add your items here
         items.Add(new Item("Sword", "A sharp blade"));
         items.Add(new Item("Shield", "Protects you from attacks"));
         items.Add(new Item("Medkit", "Used to heal player's health"));

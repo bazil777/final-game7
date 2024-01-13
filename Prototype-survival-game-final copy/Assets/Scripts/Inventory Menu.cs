@@ -23,7 +23,7 @@ public class InventoryMenu : MonoBehaviour
 
             if (menuActivated)
             {
-                UpdateSelectedItem(); // Update selected item when inventory is opened
+                UpdateSelectedItem(); // I Updated selected item when inventory is opened
             }
         }
 
@@ -49,6 +49,7 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+//if item already exists then add item count at the end of the description
     private void UpdateSelectedItem()
     {
         string itemName = Inventory.Instance.GetItemName(selectedItemIndex);

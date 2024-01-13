@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
+//reference inventory, sets max items and inventory size, then checks dictionary to fill slots and description
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
@@ -30,7 +31,7 @@ public class Inventory : MonoBehaviour
     {
         InitializeInventorySlots();
     }
-
+//sets empty inventory slots to []
     private void InitializeInventorySlots()
     {
         for (int i = 0; i < INVENTORY_SIZE; i++)
@@ -38,6 +39,7 @@ public class Inventory : MonoBehaviour
             slotTexts[i].text = "[]";
         }
     }
+//if less than max then add item , or if no item at all then add the item
 
     public void AddItem(string itemName)
     {
@@ -57,7 +59,8 @@ public class Inventory : MonoBehaviour
 
         UpdateSlotTexts();
     }
-
+//updates all slots from [], check if has item with same key and also added a remove item method to 
+//to remove items from inventoy
     private void UpdateSlotTexts()
     {
         int index = 0;
@@ -91,7 +94,7 @@ public class Inventory : MonoBehaviour
             UpdateSlotTexts();
         }
     }
-
+//get the item name via the indexand key
     public string GetItemName(int index)
     {
         if (index >= 0 && index < INVENTORY_SIZE)

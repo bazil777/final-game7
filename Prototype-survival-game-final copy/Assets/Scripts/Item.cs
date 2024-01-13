@@ -1,4 +1,5 @@
 [System.Serializable]
+//set up for inventory
 public class Item
 {
     public string itemName;

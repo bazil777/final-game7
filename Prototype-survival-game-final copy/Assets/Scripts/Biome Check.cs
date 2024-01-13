@@ -1,13 +1,14 @@
 using UnityEngine;
 using TMPro;
 
+//assigns GUI, controller position, and ref lighting manager to later edit lighting based off area
 public class BiomeOneCheck : MonoBehaviour
 {
     public TextMeshProUGUI messageText;
     public Transform playerTransform;
-    public LightingManager lightingManager; // Assign this in the inspector
+    public LightingManager lightingManager; 
 
-    // Biome thresholds
+    //All my biome areas to use later calculate (made public so i can debug later)
     public float biomeXThreshold = 350f;
     public float darkZoneXMin = 352.7f;
     public float darkZoneXMax = 420.4f;
@@ -22,6 +23,7 @@ public class BiomeOneCheck : MonoBehaviour
     public float mudZMin = -28f;
     public float mudZMax = 222f;
 
+    //given each biome a number value to manage later
     public enum BiomeType
     {
         None = 0,
@@ -31,7 +33,8 @@ public class BiomeOneCheck : MonoBehaviour
         Mud = 3
     }
 
-    public BiomeType CurrentBiome { get; private set; } // Public property to access the current biome
+    //ill access the current biome , then check player transform and change lighting based off this
+    public BiomeType CurrentBiome { get; private set; } 
 
     private void Start()
     {
@@ -51,7 +54,7 @@ public class BiomeOneCheck : MonoBehaviour
             lightingManager.UpdateLighting(CurrentBiome);
         }
     }
-
+    //based of player position ill return to the UI a message displaying biome, if certain chamrs have effect then this will be known too 
     private BiomeType CheckBiome()
     {
         float playerXPosition = playerTransform.position.x;
@@ -92,6 +95,7 @@ public class BiomeOneCheck : MonoBehaviour
         return BiomeType.None;
     }
 
+    //I have set up the colour of each biome message here rather in the inspector cause i was having issues that way.
     private void DisplayMessage(string message, Color color)
     {
         messageText.text = message;

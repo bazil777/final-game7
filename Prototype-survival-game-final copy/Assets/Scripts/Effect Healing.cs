@@ -1,24 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
+//assign overlay , how long it will last and how many times
+//check player reference and then set the thresholds
 public class HealingScreenEffect : MonoBehaviour
 {
-    public Image healingOverlay; // UI Image for healing effect
-    public float pulseDuration = 1f; // Duration of one pulse
-    public int pulseCount = 1; // Number of pulses
+    public Image healingOverlay; 
+    public float pulseDuration = 1f; 
+    public int pulseCount = 1; 
 
     private Color originalColor;
 
     void Start()
     {
-        // Save the original color of the overlay
         originalColor = healingOverlay.color;
 
-        // Make the overlay fully transparent at start
         healingOverlay.gameObject.SetActive(false);
     }
-
+//debugging
     public void StartHealingEffect(PlayerHealth playerHealth)
     {
         Debug.Log("HealingScreenEffect: StartHealingEffect() called.");
@@ -33,7 +32,7 @@ public class HealingScreenEffect : MonoBehaviour
             Debug.Log("Player health is already at maximum, no healing effect needed.");
         }
     }
-
+//if successful then start green pulse effect and increment health by 10
     private IEnumerator HealEffect(PlayerHealth playerHealth)
     {
         Debug.Log("HealingScreenEffect: HealEffect coroutine started.");
@@ -41,7 +40,6 @@ public class HealingScreenEffect : MonoBehaviour
 
         for (int i = 0; i < pulseCount; i++)
         {
-            // Increment health by 10 each pulse
             if (playerHealth != null)
             {
                 playerHealth.IncrementHealth(10);

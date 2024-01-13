@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class BiomeDamage : MonoBehaviour
 {
-    public PlayerHealth playerHealth; // Reference to the PlayerHealth script
-    public BiomeOneCheck biomeChecker; // Reference to the BiomeOneCheck script
-    public float damageInterval = 1f; // Time in seconds between each damage tick
+    //refenceing the gameobjects so can be edited and debugged in inspector
+    public PlayerHealth playerHealth; 
+    public BiomeOneCheck biomeChecker; 
+    public float damageInterval = 1f; 
     private float damageTimer = 0f;
 
+    //new update method that checks if a player is in snow or sarkzone biome and if they dont  have charm apply damage while there
     private void Update()
     {
         if (biomeChecker == null) return;
