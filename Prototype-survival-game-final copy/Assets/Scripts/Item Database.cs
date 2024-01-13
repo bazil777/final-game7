@@ -38,6 +38,8 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Item("Racket", "interesting ! Combine this with a crystal to create charm!"));
         items.Add(new Item("Crystal", "interesting ! Combine this with a Racket to create charm!"));
         items.Add(new Item("Air Charm", "This mystic charm will keep the air clean, you'll tak no damage from harmful air poisons"));
+        items.Add(new Item("Plastic Shard", "Grab 5 of these to help build a torch!"));
+
     }
 
     public string GetItemDescription(string itemName)

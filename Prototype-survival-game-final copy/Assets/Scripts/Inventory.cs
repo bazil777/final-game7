@@ -66,15 +66,22 @@ public class Inventory : MonoBehaviour
         int index = 0;
         foreach (var item in itemCounts)
         {
-            slotTexts[index].text = item.Key;
+            // Check if the item name is longer than 3 characters 
+            string itemName = item.Key.Length > 3 ? item.Key.Substring(0, 3) : item.Key;
+
+            // Use Rich Text to format the item name and count with different styles
+            slotTexts[index].text = "<size=75%><color=#ADD8E6><b>" + itemName + "</b></color> " + // I made it light blue 
+                                    "<size=50%><color=yellow>x" + item.Value + "</color></size>"; // Made it yellow and smaller
             index++;
         }
 
+        // Set empty inventory slots to []
         for (int i = index; i < INVENTORY_SIZE; i++)
         {
-            slotTexts[i].text = "[]";
+            slotTexts[i].text = "<color=#ADD8E6>" + "[ ]";
         }
     }
+
 
     public bool HasItem(string itemName)
     {
