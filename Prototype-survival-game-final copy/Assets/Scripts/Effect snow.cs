@@ -2,14 +2,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+//assign overlay , how long it will last and how many times
 public class EffectSnow : MonoBehaviour
 {
-    public Image snowOverlay; // Assign your blue overlay UI Image in the inspector
-    public float pulseDuration = 1f; // Duration of one pulse
-    public int pulseCount = 1; // Number of pulses
-
+    public Image snowOverlay; 
+    public float pulseDuration = 1f; 
+    public int pulseCount = 1; 
+//check player reference and then set the thresholds
     private Color originalColor;
-    private Transform playerTransform; // Reference to the player's transform
+    private Transform playerTransform; 
     private bool isInSnowArea = false;
 
     public float snowXMin = 352.0f;
@@ -22,16 +23,16 @@ public class EffectSnow : MonoBehaviour
         // Save the original color of the overlay
         originalColor = snowOverlay.color;
 
-        // Make the overlay fully transparent at start
+        // make it so its invisible to player
         snowOverlay.gameObject.SetActive(false);
 
-        // Find the player in the scene
+        // Find controller coordinates
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
+// Check if the player is within the snow area, if so start the effect using coroutine to make it last for longer
+//if player not in snow area then set the overlay to false
     void Update()
     {
-        // Check if the player is within the snow area
         if (playerTransform.position.x >= snowXMin && playerTransform.position.x <= snowXMax &&
             playerTransform.position.z >= snowZMin && playerTransform.position.z <= snowZMax)
         {
@@ -48,10 +49,10 @@ public class EffectSnow : MonoBehaviour
             isInSnowArea = false;
         }
     }
-
+//runs this while in snow area, waits for a few moments between pulses
     private IEnumerator SnowEffect()
     {
-        while (isInSnowArea) // Continuously run while in snow area
+        while (isInSnowArea) 
         {
             snowOverlay.gameObject.SetActive(true);
 
@@ -61,12 +62,11 @@ public class EffectSnow : MonoBehaviour
                 yield return StartCoroutine(FadeSnowOverlay(0.5f, 0, pulseDuration / 2));
             }
 
-            yield return new WaitForSeconds(pulseDuration); // Wait for a bit before the next pulse starts
+            yield return new WaitForSeconds(pulseDuration); 
         }
 
         snowOverlay.gameObject.SetActive(false);
     }
-
     private IEnumerator FadeSnowOverlay(float startAlpha, float endAlpha, float duration)
     {
         float time = 0;

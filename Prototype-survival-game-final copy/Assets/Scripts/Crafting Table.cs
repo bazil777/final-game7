@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//find player position, if within range checks E kep is pressed and will start animation to make item
 public class CraftingTable : MonoBehaviour
 {
     public float interactionRange = 6.0f;
@@ -19,6 +20,7 @@ public class CraftingTable : MonoBehaviour
         }
     }
 
+    //if the player tries to press E without needed items then don't craft, if they have it then craft and remove from their inventory
     private IEnumerator CraftHatchet()
     {
         if (Inventory.Instance == null)
@@ -34,18 +36,15 @@ public class CraftingTable : MonoBehaviour
             Inventory.Instance.RemoveItem("Fork");
             Inventory.Instance.RemoveItem("Stone");
 
-            // Adjusted position to be higher and closer to the player
+            // animation of crafting, spins for 5 seconds 
             Vector3 craftPosition = playerTransform.position + playerTransform.forward * 1.5f + Vector3.up * 1.0f;
 
-            // Activate and position fork and stone
             fork.SetActive(true);
             stone.SetActive(true);
             fork.transform.position = craftPosition;
             stone.transform.position = craftPosition + Vector3.up * 0.3f;
-
-            // Start spin animation
             Debug.Log("Starting spin animation.");
-            float spinTime = 5.0f; // Increased spin time for visibility
+            float spinTime = 5.0f; 
             float timer = 0;
             while (timer <= spinTime)
             {
@@ -55,7 +54,7 @@ public class CraftingTable : MonoBehaviour
                 yield return null;
             }
 
-            // Hide fork and stone, spawn hatchet
+            // gets rid of the items and instantiates the crafted weopon
             Debug.Log("Hiding fork and stone, and spawning hatchet.");
             fork.SetActive(false);
             stone.SetActive(false);

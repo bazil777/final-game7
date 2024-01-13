@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//setting objects needed to craft, player position and interaction range
 public class CharmTable : MonoBehaviour
 {
     public float interactionRange = 4.0f;
@@ -10,6 +11,7 @@ public class CharmTable : MonoBehaviour
     public GameObject crystal;
     public GameObject racket;
 
+//check if E pressed in range to perform operation
     private void Update()
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
@@ -19,7 +21,7 @@ public class CharmTable : MonoBehaviour
             StartCoroutine(CraftAirCharm());
         }
     }
-
+//Cheks if required items in inventory, removes item from inventory, animates items on bench and when finished then sets the items to false
     private IEnumerator CraftAirCharm()
     {
         if (Inventory.Instance == null)
@@ -38,7 +40,6 @@ public class CharmTable : MonoBehaviour
 
             Vector3 craftPosition = playerTransform.position + playerTransform.forward * 1.5f + Vector3.up * 1.0f;
 
-            // Activate and position logs, crystal, and racket
             logs.SetActive(true);
             crystal.SetActive(true);
             racket.SetActive(true);
@@ -46,7 +47,6 @@ public class CharmTable : MonoBehaviour
             crystal.transform.position = craftPosition + Vector3.up * 0.3f;
             racket.transform.position = craftPosition + Vector3.up * 0.6f;
 
-            // Start spin animation
             Debug.Log("Starting spin animation for charm crafting.");
             float spinTime = 5.0f;
             float timer = 0;
@@ -59,7 +59,7 @@ public class CharmTable : MonoBehaviour
                 yield return null;
             }
 
-            // Hide logs, crystal, and racket, spawn air charm
+            //Sets items animated items to false
             Debug.Log("Hiding crafting items and spawning air charm.");
             logs.SetActive(false);
             crystal.SetActive(false);

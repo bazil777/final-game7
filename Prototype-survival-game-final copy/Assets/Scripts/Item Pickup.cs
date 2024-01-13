@@ -1,29 +1,34 @@
 using UnityEngine;
 using TMPro;
 
+// Reference to the UI text that will display the message.
+// The range within which the player can pick up the item.
+//get player pos
+//then find name
 public class ItemPickup : MonoBehaviour
 {
-    public TextMeshProUGUI pickupText; // Reference to the UI text that will display the message.
-    public float pickupRange = 4.0f; // The range within which the player can pick up the item.
-    public Transform playerTransform; // Reference to the player's transform.
-    public string itemName; // The name of the item to be picked up.
+    public TextMeshProUGUI pickupText; 
+    public float pickupRange = 4.0f; 
+    public Transform playerTransform; 
+    public string itemName; 
 
     private void Start()
     {
         pickupText.gameObject.SetActive(false);
     }
-
+//if special case like hatchet then dont allow pickup if already owned
+//otherwise i will display press P to pick up and if p is pressed call pick up item method
     private void Update()
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
 
         if (distance <= pickupRange)
         {
-            // Check if the item is a hatchet and if the player already has one
+            // Check if hatchet and if the player has
             bool alreadyHasHatchet = itemName.Equals("Hatchet") && Inventory.Instance.HasItem("Hatchet");
             if (!alreadyHasHatchet)
             {
-                // Show the pickup text for other items or if the player doesn't have a hatchet
+                // Show the pickup textif the player doesn't have a hatchet
                 pickupText.gameObject.SetActive(true);
                 pickupText.text = "Press P to pick up " + itemName;
 
@@ -34,7 +39,7 @@ public class ItemPickup : MonoBehaviour
             }
             else
             {
-                // Don't show the pickup text if the player already has a hatchet
+                
                 pickupText.gameObject.SetActive(false);
             }
         }
@@ -43,7 +48,7 @@ public class ItemPickup : MonoBehaviour
             pickupText.gameObject.SetActive(false);
         }
     }
-
+//if item not in database, inventory needs a way to deal with this so Ill just give it these values
     private void PickupItem()
     {
         if (Inventory.Instance != null && !string.IsNullOrEmpty(itemName))

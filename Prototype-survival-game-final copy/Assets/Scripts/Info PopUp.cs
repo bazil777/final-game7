@@ -1,39 +1,39 @@
 using UnityEngine;
 
+//points to info popup, checks player distance and defines range to use
 public class InfoPopUp : MonoBehaviour
 {
-    public GameObject infoPanel; // Assign your info panel in the inspector
-    public Transform playerTransform; // Assign your player's transform in the inspector
-    public float activationDistance = 3f; // Distance within which the player can activate the panel
-
+    public GameObject infoPanel; 
+    public Transform playerTransform; 
+    public float activationDistance = 3f; 
+//distance to the player , if within range and presses T activate the info panel
+//deactivate the info panel if t pressed again or if player moves out of range
+    // Set the info panel to inactive when the game starts
+    private void Start()
+    {
+        infoPanel.SetActive(false);
+    }
     private void Update()
     {
         float distance = Vector3.Distance(transform.position, playerTransform.position);
-        // Debug.Log("Distance to player: " + distance); // Log the distance to the player
 
         if (distance <= activationDistance)
         {
-            // Debug.Log("Player is within activation distance."); // Log when player is within range
 
-            if (Input.GetKeyDown(KeyCode.T)) // Use 'T' key instead of 'E'
+            if (Input.GetKeyDown(KeyCode.T)) 
             {
-                Debug.Log("T key pressed."); // Log when T key is pressed
+                Debug.Log("T key pressed."); 
                 infoPanel.SetActive(!infoPanel.activeSelf);
 
                 if (infoPanel.activeSelf)
                 {
-                    Debug.Log("Info panel activated."); // Log when the panel is activated
+                    Debug.Log("Info panel activated."); 
                 }
                 else
                 {
-                    Debug.Log("Info panel deactivated."); // Log when the panel is deactivated
+                    Debug.Log("Info panel deactivated."); 
                 }
             }
-        }
-        else if (infoPanel.activeSelf)
-        {
-            infoPanel.SetActive(false);
-            Debug.Log("Player moved out of range, info panel deactivated."); // Log when the player moves out of range and the panel is deactivated
         }
     }
 }
