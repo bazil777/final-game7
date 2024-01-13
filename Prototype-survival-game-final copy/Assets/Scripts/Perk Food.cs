@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// This class represents the functionality of a food station in the game.
+// functionality of a food station.
 public class FoodStation : MonoBehaviour
 {
     public float interactionRange = 4.0f; // Range within which the player can interact with the food station
