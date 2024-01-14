@@ -26,7 +26,7 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Item("Sword", "A sharp blade"));
         items.Add(new Item("Shield", "Protects you from attacks"));
         items.Add(new Item("Medkit", "Used to heal player's health"));
-        items.Add(new Item("Bottle", "This slurp juice gives you a speed boost... for a time"));
+        items.Add(new Item("Bottle", "Take this slurp drink to the food station to enjoy and recover some health"));
         items.Add(new Item("Fork", "Take this & stone to the crafting table"));
         items.Add(new Item("Stone", "Take this & the fork to the crafting table"));
         items.Add(new Item("Hatchet", "Use this to knock down trees to get wood !"));
@@ -38,7 +38,14 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Item("Racket", "interesting ! Combine this with a crystal to create charm!"));
         items.Add(new Item("Crystal", "interesting ! Combine this with a Racket to create charm!"));
         items.Add(new Item("Air Charm", "This mystic charm will keep the air clean, you'll tak no damage from harmful air poisons"));
+<<<<<<< HEAD
+        items.Add(new Item("Plastic Shard", "Grab 5 of these to help build a torch with matches!"));
+        items.Add(new Item("Matches", "Nice. You found a box of matches, combine this with some shards"));
+        items.Add(new Item("Torch", "Use this to see in dark areas"));
+
+=======
         items.Add(new Item("Plastic Shard", "Grab 5 of these to help build a torch!"));
+>>>>>>> 030d312468b850f6a1e45789359b93d6160a8064
 
     }
 

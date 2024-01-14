@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// functionality of a food station.
+// This class represents the functionality of a food station in the game.
 public class FoodStation : MonoBehaviour
 {
     public float interactionRange = 4.0f; // Range within which the player can interact with the food station
@@ -29,7 +29,7 @@ public class FoodStation : MonoBehaviour
         }
 
         // List of food items that can be consumed for health recovery
-        string[] foodItems = { "PacCake", "Water", "Sandwich" };
+        string[] foodItems = { "PacCake", "Water", "Sandwich", "Bottle" };
 
         foreach (string foodItem in foodItems)
         {

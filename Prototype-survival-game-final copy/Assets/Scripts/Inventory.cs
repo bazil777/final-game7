@@ -88,17 +88,27 @@ public class Inventory : MonoBehaviour
         return itemCounts.ContainsKey(itemName);
     }
 
+
     public void RemoveItem(string itemName)
+    {
+        RemoveItem(itemName, 1); // Call the other overload with a default quantity of 1
+    }
+
+    public void RemoveItem(string itemName, int quantity)
     {
         if (itemCounts.ContainsKey(itemName))
         {
-            itemCounts[itemName]--;
+            itemCounts[itemName] -= quantity;
             if (itemCounts[itemName] <= 0)
             {
                 itemCounts.Remove(itemName);
             }
 
             UpdateSlotTexts();
+        }
+        else
+        {
+            Debug.Log("Item not found in inventory.");
         }
     }
 //get the item name via the indexand key
