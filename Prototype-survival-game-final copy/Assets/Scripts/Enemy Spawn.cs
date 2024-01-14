@@ -22,7 +22,6 @@ public class SpawnEnemy : MonoBehaviour
         //small amount of enemies sspawned but in the final game will be waves of more
         while (enemyCount < 2)
         {
-            //spawn radius , small but in final game will be larger
             xAxis = Mathf.FloorToInt(Random.Range(400f, 420f));
             zAxis = Mathf.FloorToInt(Random.Range(33f, 44f));
             GameObject newEnemy = Instantiate(enemyPrefab, new Vector3(xAxis, 0.7043388f, zAxis), Quaternion.identity);

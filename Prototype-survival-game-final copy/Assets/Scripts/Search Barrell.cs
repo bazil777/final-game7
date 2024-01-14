@@ -1,20 +1,19 @@
 using UnityEngine;
-using TMPro; // Make sure this is included to use TextMeshPro elements
+using TMPro; 
 
 public class BarrelSearch : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI interactionText; // Now a serialized private field
+    [SerializeField] private TextMeshProUGUI interactionText; 
 
-    public GameObject crystalPrefab; // Reference to the crystal prefab.
-    public float interactionRange = 3.0f; // Range within which player can interact with the barrel.
-    public Transform playerTransform; // Reference to the player's transform.
+    public GameObject crystalPrefab; // Reference to the crystal prefab to drop on search
+    public float interactionRange = 3.0f; // ive set a good rane so player can interact with barrel
+    public Transform playerTransform; // check the player position
 
-    // Static variable to keep track of the active barrel
     private static BarrelSearch activeBarrel; 
 
     private void Awake()
     {
-        // Ensure interactionText is hidden at start
+        // hide text at start
         if (interactionText != null)
         {
             interactionText.gameObject.SetActive(false);
@@ -23,7 +22,7 @@ public class BarrelSearch : MonoBehaviour
 
     private void Update()
     {
-        // Early exit if interactionText is not assigned
+        // debuugging
         if (interactionText == null)
         {
             Debug.LogError("Interaction text not assigned.");
@@ -57,12 +56,11 @@ public class BarrelSearch : MonoBehaviour
             activeBarrel = null;
         }
     }
-
+// Instantiate item if assigned once broken
     private void SearchBarrel()
     {
         Debug.Log("Barrel searched!");
 
-        // Instantiate crystal if assigned
         if (crystalPrefab != null)
         {
             Instantiate(crystalPrefab, transform.position, Quaternion.identity);

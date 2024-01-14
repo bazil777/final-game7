@@ -3,14 +3,22 @@ using TMPro;
 
 public class ItemPickup : MonoBehaviour
 {
-    public TextMeshProUGUI pickupText; // Reference to the UI text that will display the message.
-    public float pickupRange = 4.0f; // The range within which the player can pick up the item.
-    public Transform playerTransform; // Reference to the player's transform.
-    public string itemName; // The name of the item to be picked up.
+    public TextMeshProUGUI pickupText;
+    public float pickupRange = 4.0f;
+    public Transform playerTransform;
+    public string itemName;
+     private PlayerGold playerGold;
 
     private void Start()
     {
         pickupText.gameObject.SetActive(false);
+
+        // Find the PlayerGold component on the player GameObject using the new method
+        playerGold = Object.FindObjectOfType(typeof(PlayerGold)) as PlayerGold;
+        if (playerGold == null)
+        {
+            Debug.LogError("PlayerGold script not found in the scene.");
+        }
     }
 
     private void Update()
@@ -19,11 +27,11 @@ public class ItemPickup : MonoBehaviour
 
         if (distance <= pickupRange)
         {
-            // Check if the item is a hatchet and if the player already has one
-            bool alreadyHasHatchet = itemName.Equals("Hatchet") && Inventory.Instance.HasItem("Hatchet");
-            if (!alreadyHasHatchet)
+            // Check if the item is already in the inventory and is a non-stackable item
+            bool alreadyHasItem = (itemName.Equals("Hatchet") || itemName.Equals("Torch")) && Inventory.Instance.HasItem(itemName);
+            if (!alreadyHasItem)
             {
-                // Show the pickup text for other items or if the player doesn't have a hatchet
+                // Show the pickup text if the player doesn't have the item or it's stackable
                 pickupText.gameObject.SetActive(true);
                 pickupText.text = "Press P to pick up " + itemName;
 
@@ -34,7 +42,6 @@ public class ItemPickup : MonoBehaviour
             }
             else
             {
-                // Don't show the pickup text if the player already has a hatchet
                 pickupText.gameObject.SetActive(false);
             }
         }
@@ -54,6 +61,8 @@ public class ItemPickup : MonoBehaviour
             {
                 Inventory.Instance.AddItem(itemName);
                 Debug.Log("Picked up: " + itemName + " - " + itemDescription);
+                playerGold.AddGold(50); // Add 50 gold
+                
             }
             else
             {
@@ -61,7 +70,7 @@ public class ItemPickup : MonoBehaviour
             }
 
             pickupText.gameObject.SetActive(false);
-            gameObject.SetActive(false);
+            gameObject.SetActive(false); // Optionally, disable the item GameObject
         }
     }
 }

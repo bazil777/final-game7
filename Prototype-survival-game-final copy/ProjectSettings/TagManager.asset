@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BiomeOne
   - Tree
+  - Bear
   layers:
   - Default
   - TransparentFX

@@ -5,9 +5,10 @@ public class CraftingTable : MonoBehaviour
 {
     public float interactionRange = 6.0f;
     public Transform playerTransform;
-    public GameObject hatchetPrefab;
-    public GameObject fork;
-    public GameObject stone;
+    public GameObject hatchetPrefab; // Prefab for the hatchet
+    public GameObject torchPrefab;    // Prefab for the torch
+    public GameObject fork;           // GameObject for the visual representation of a fork
+    public GameObject stone;          // GameObject for the visual representation of a stone
 
     private void Update()
     {
@@ -15,11 +16,11 @@ public class CraftingTable : MonoBehaviour
         if (distance <= interactionRange && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E key pressed and player is within range.");
-            StartCoroutine(CraftHatchet());
+            StartCoroutine(CraftItem());
         }
     }
 
-    private IEnumerator CraftHatchet()
+    private IEnumerator CraftItem()
     {
         if (Inventory.Instance == null)
         {
@@ -27,45 +28,82 @@ public class CraftingTable : MonoBehaviour
             yield break;
         }
 
+        // Check for hatchet materials
         if (Inventory.Instance.HasItem("Fork") && Inventory.Instance.HasItem("Stone"))
         {
-            Debug.Log("Fork and Stone found in inventory. Starting the crafting process.");
-
-            Inventory.Instance.RemoveItem("Fork");
-            Inventory.Instance.RemoveItem("Stone");
-
-            // Adjusted position to be higher and closer to the player
-            Vector3 craftPosition = playerTransform.position + playerTransform.forward * 1.5f + Vector3.up * 1.0f;
-
-            // Activate and position fork and stone
-            fork.SetActive(true);
-            stone.SetActive(true);
-            fork.transform.position = craftPosition;
-            stone.transform.position = craftPosition + Vector3.up * 0.3f;
-
-            // Start spin animation
-            Debug.Log("Starting spin animation.");
-            float spinTime = 5.0f; // Increased spin time for visibility
-            float timer = 0;
-            while (timer <= spinTime)
-            {
-                fork.transform.Rotate(Vector3.up, 180 * Time.deltaTime);
-                stone.transform.Rotate(Vector3.up, -180 * Time.deltaTime);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-
-            // Hide fork and stone, spawn hatchet
-            Debug.Log("Hiding fork and stone, and spawning hatchet.");
-            fork.SetActive(false);
-            stone.SetActive(false);
-            Instantiate(hatchetPrefab, craftPosition, Quaternion.identity);
-
-            Debug.Log("Hatchet crafting completed.");
+            Debug.Log("Crafting hatchet...");
+            yield return CraftHatchet();
+        }
+        // Check for torch materials
+        else if (Inventory.Instance.GetItemCount("Plastic Shard") >= 10 && Inventory.Instance.GetItemCount("Matches") >= 2)
+        {
+            Debug.Log("Crafting torch...");
+            yield return CraftTorch();
         }
         else
         {
             Debug.Log("Required items for crafting not found in inventory.");
         }
     }
+
+    private IEnumerator CraftHatchet()
+    {
+        Inventory.Instance.RemoveItem("Fork");
+        Inventory.Instance.RemoveItem("Stone");
+
+        Vector3 craftPosition = playerTransform.position + playerTransform.forward * 1.5f + Vector3.up * 1.0f;
+        fork.SetActive(true);
+        stone.SetActive(true);
+        fork.transform.position = craftPosition;
+        stone.transform.position = craftPosition + Vector3.up * 0.3f;
+
+        float spinTime = 5.0f;
+        float timer = 0;
+        while (timer <= spinTime)
+        {
+            fork.transform.Rotate(Vector3.up, 180 * Time.deltaTime);
+            stone.transform.Rotate(Vector3.up, 180 * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        fork.SetActive(false);
+        stone.SetActive(false);
+        Instantiate(hatchetPrefab, craftPosition, Quaternion.identity);
+
+        Debug.Log("Hatchet crafting completed.");
+    }
+
+    private IEnumerator CraftTorch()
+    {
+        // Remove items for torch crafting
+        for (int i = 0; i < 10; i++)
+        {
+            Inventory.Instance.RemoveItem("Plastic Shard");
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            Inventory.Instance.RemoveItem("Matches");
+        }
+
+        Vector3 craftPosition = playerTransform.position + playerTransform.forward * 1.5f + Vector3.up * 1.0f;
+        GameObject temporaryTorch = Instantiate(torchPrefab, craftPosition, Quaternion.identity);
+        temporaryTorch.SetActive(true);
+
+        float spinTime = 5.0f;
+        float timer = 0;
+        while (timer <= spinTime)
+        {
+            temporaryTorch.transform.Rotate(Vector3.up, 180 * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(temporaryTorch);
+        Instantiate(torchPrefab, craftPosition, Quaternion.identity);
+
+        Debug.Log("Torch crafting completed.");
+    }
+
+
 }

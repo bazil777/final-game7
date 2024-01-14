@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
+//reference inventory, sets max items and inventory size, then checks dictionary to fill slots and description
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
@@ -30,7 +31,7 @@ public class Inventory : MonoBehaviour
     {
         InitializeInventorySlots();
     }
-
+//sets empty inventory slots to []
     private void InitializeInventorySlots()
     {
         for (int i = 0; i < INVENTORY_SIZE; i++)
@@ -38,6 +39,7 @@ public class Inventory : MonoBehaviour
             slotTexts[i].text = "[]";
         }
     }
+//if less than max then add item , or if no item at all then add the item
 
     public void AddItem(string itemName)
     {
@@ -57,32 +59,46 @@ public class Inventory : MonoBehaviour
 
         UpdateSlotTexts();
     }
-
+//updates all slots from [], check if has item with same key and also added a remove item method to 
+//to remove items from inventoy
     private void UpdateSlotTexts()
     {
         int index = 0;
         foreach (var item in itemCounts)
         {
-            slotTexts[index].text = item.Key;
+            // Check if the item name is longer than 3 characters 
+            string itemName = item.Key.Length > 3 ? item.Key.Substring(0, 3) : item.Key;
+
+            // Use Rich Text to format the item name and count with different styles
+            slotTexts[index].text = "<size=75%><color=#ADD8E6><b>" + itemName + "</b></color> " + // I made it light blue 
+                                    "<size=50%><color=yellow>x" + item.Value + "</color></size>"; // Made it yellow and smaller
             index++;
         }
 
+        // Set empty inventory slots to []
         for (int i = index; i < INVENTORY_SIZE; i++)
         {
-            slotTexts[i].text = "[]";
+            slotTexts[i].text = "<color=#ADD8E6>" + "[ ]";
         }
     }
+
 
     public bool HasItem(string itemName)
     {
         return itemCounts.ContainsKey(itemName);
     }
 
+
     public void RemoveItem(string itemName)
+    {
+        RemoveItem(itemName, 1); // Call the other overload with a default quantity of 1
+    }
+
+    public void RemoveItem(string itemName, int quantity)
     {
         if (itemCounts.ContainsKey(itemName))
         {
-            itemCounts[itemName]--;
+            itemCounts[itemName] -= quantity;
             if (itemCounts[itemName] <= 0)
             {
                 itemCounts.Remove(itemName);
@@ -90,8 +106,12 @@ public class Inventory : MonoBehaviour
 
             UpdateSlotTexts();
         }
+        else
+        {
+            Debug.Log("Item not found in inventory.");
+        }
     }
-
+//get the item name via the indexand key
     public string GetItemName(int index)
     {
         if (index >= 0 && index < INVENTORY_SIZE)

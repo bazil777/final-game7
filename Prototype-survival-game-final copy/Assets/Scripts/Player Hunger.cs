@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI; // For UI Text
-using TMPro; // Uncomment this if using TextMeshPro
+using TMPro; // I am using textmeshpro
 
 public class PlayerHunger : MonoBehaviour
 {
     public PlayerHealth playerHealth;
-    public TextMeshProUGUI hungerText; // Use this if you're using TextMeshPro
+    public TextMeshProUGUI hungerText; // Used this as im using TMPro
 
     public int maxHunger = 100;
     public float hungerDecreaseInterval = 5f;

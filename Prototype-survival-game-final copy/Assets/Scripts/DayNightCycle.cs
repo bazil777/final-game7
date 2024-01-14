@@ -1,35 +1,33 @@
 using UnityEngine;
 
+//defining day, and morning angle, to differentiate when mornin and night
 public class DayNightCycle : MonoBehaviour
 {
-    public float dayLengthInSeconds = 360; // Length of a day in real-time seconds
+    public float dayLengthInSeconds = 360; 
     private float rotationSpeed;
 
-    // Define what rotation angle is considered morning
-    public float morningAngle = 0; // Assuming 0 is the rotation at morning
-
+    
+    public float morningAngle = 0; 
+    // lcalculate rotation speed ie length of a daynight
     private void Start()
     {
         rotationSpeed = 360 / dayLengthInSeconds; // Calculate rotation speed
     }
 
+    //rotates the light depending on the angle day and double check light points at centre
     private void Update()
     {
-        // Rotate the light every frame
         transform.RotateAround(Vector3.zero, Vector3.right, rotationSpeed * Time.deltaTime);
-        transform.LookAt(Vector3.zero); // Ensure the light points to the center
+        transform.LookAt(Vector3.zero); 
     }
 
+    //finds angle needed for morning, if angle exceeds 180 its night so we need to rotate day
     public void SkipToMorning()
     {
-        // Calculate the angle to rotate from the current position to the morning position
         float currentAngle = transform.eulerAngles.x;
         float angleToRotate;
-
-        // If the current angle is less than 180, it means we are in the first half of the day (morning to afternoon)
         if (currentAngle < 180)
         {
-            // If we are already past morning, we need to complete the day and start a new one
             if (currentAngle > morningAngle)
             {
                 angleToRotate = (360 - currentAngle) + morningAngle;
@@ -39,12 +37,12 @@ public class DayNightCycle : MonoBehaviour
                 angleToRotate = morningAngle - currentAngle;
             }
         }
-        else // If the current angle is more than 180, we are in the second half of the day (afternoon to night)
+        else 
         {
             angleToRotate = (360 - currentAngle) + morningAngle;
         }
 
-        // Rotate the light to morning
+        // Rotates the light to the morning angle
         transform.RotateAround(Vector3.zero, Vector3.right, angleToRotate);
     }
 }
