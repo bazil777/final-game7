@@ -15,11 +15,18 @@ public class character : MonoBehaviour
     public float sensitivity = 2.0f; // Mouse look sensitivity.
     private float rotationX = 0;
 
+    private AudioSource audioSource;
+    public AudioClip forestBiomeMusic;
+    public AudioClip snowBiomeMusic;
+    public AudioClip desertBiomeMusic;
+    public AudioClip darkZoneBiomeMusic;
+
     
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -84,6 +91,29 @@ public class character : MonoBehaviour
             isJumping = false;
             // Ensure that the character rests on the ground
             movement.y = 0f;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if (other.CompareTag("ForestBiome")){
+            audioSource.Stop();
+            audioSource.clip = forestBiomeMusic;
+            audioSource.Play();
+        }
+        else if (other.CompareTag("SnowBiome")){
+            audioSource.Stop();
+            audioSource.clip = snowBiomeMusic;
+            audioSource.Play();
+        }
+        else if (other.CompareTag("DesertBiome")){
+            audioSource.Stop();
+            audioSource.clip = desertBiomeMusic;
+            audioSource.Play();
+        }
+        else if (other.CompareTag("DarkZoneBiome")){
+            audioSource.Stop();
+            audioSource.clip = darkZoneBiomeMusic;
+            audioSource.Play();
         }
     }
 }
