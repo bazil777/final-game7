@@ -30,19 +30,17 @@ public class ItemDatabase : MonoBehaviour
         items.Add(new Item("Fork", "Take this & stone to the crafting table"));
         items.Add(new Item("Stone", "Take this & the fork to the crafting table"));
         items.Add(new Item("Hatchet", "Use this to knock down trees to get wood !"));
-        items.Add(new Item("Logs", "Use this to craft a better weopon!"));
+        items.Add(new Item("Logs", "Use this to craft a better weapon!"));
         items.Add(new Item("Battery", "Plug this into a computer to solve the mini puzzle!"));
         items.Add(new Item("PacCake", "A piece is missing but find a food station to eat and recover some health!"));
         items.Add(new Item("Water", "Find a food station to drink and recover some health!"));
         items.Add(new Item("Sandwich", "Find a food station to eat this sandwich and recover some health!"));
-        items.Add(new Item("Racket", "interesting ! Combine this with a crystal to create charm!"));
-        items.Add(new Item("Crystal", "interesting ! Combine this with a Racket to create charm!"));
-        items.Add(new Item("Air Charm", "This mystic charm will keep the air clean, you'll tak no damage from harmful air poisons"));
-        items.Add(new Item("Plastic Shard", "Grab 5 of these to help build a torch with matches!"));
-        items.Add(new Item("Matches", "Nice. You found a box of matches, combine this with some shards"));
+        items.Add(new Item("Racket", "Interesting! Combine this with a crystal to create charm!"));
+        items.Add(new Item("Crystal", "Interesting! Combine this with a Racket to create charm!"));
+        items.Add(new Item("Air Charm", "This mystic charm will keep the air clean, you'll take no damage from harmful air poisons"));
+        items.Add(new Item("Plastic Shard", "Grab 5 of these to help build a torch!"));
+        items.Add(new Item("Matches", "Nice. You found a box of matches, combine this with shards to make a torch"));
         items.Add(new Item("Torch", "Use this to see in dark areas"));
-
-
     }
 
     public string GetItemDescription(string itemName)
